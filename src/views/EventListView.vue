@@ -8,7 +8,6 @@ import { useRouter } from 'vue-router'
 import NProgress from 'nprogress'
 import { onBeforeRouteUpdate } from 'vue-router'
 
-
 const router = useRouter()
 const events: Ref<EventItem[]> = ref([])
 const totalEvent = ref<number>(0)
@@ -23,12 +22,14 @@ const props = defineProps({
   }
 })
 
-EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>) => {
-  events.value = response.data
-  totalEvent.value = response.headers['x-total-count']
-}).catch(() => {
-  router.push({ name: 'NetworkError' })
-})
+EventService.getEvent(3, props.page)
+  .then((response: AxiosResponse<EventItem[]>) => {
+    events.value = response.data
+    totalEvent.value = response.headers['x-total-count']
+  })
+  .catch(() => {
+    router.push({ name: 'NetworkError' })
+  })
 // .finally(() => {
 //   NProgress.done()
 // })
@@ -36,24 +37,25 @@ EventService.getEvent(3, props.page).then((response: AxiosResponse<EventItem[]>)
 onBeforeRouteUpdate((to, from, next) => {
   const toPage = Number(to.query.page)
   // NProgress.start()
-  EventService.getEvent(3, toPage).then((response: AxiosResponse<EventItem[]>) => {
-    events.value = response.data
-    totalEvent.value = response.headers['x-total-count']
-    next()
-  }).catch(() => {
-    next({ name: 'NetworkError' })
-  })
+  EventService.getEvent(3, toPage)
+    .then((response: AxiosResponse<EventItem[]>) => {
+      events.value = response.data
+      totalEvent.value = response.headers['x-total-count']
+      next()
+    })
+    .catch(() => {
+      next({ name: 'NetworkError' })
+    })
   // }).finally(() => {
   //   NProgress.done()
   // })
 })
 
-NProgress.start()  
+NProgress.start()
 EventService.getEvent(props.limit, props.page).then((response: AxiosResponse<EventItem[]>) => {
-events.value = response.data
-totalEvent.value = response.headers['x-total-count']
+  events.value = response.data
+  totalEvent.value = response.headers['x-total-count']
 })
-
 
 const limit = ref(props.limit)
 
@@ -79,8 +81,8 @@ const hasNextPage = computed(() => {
 <template>
   <h1>
     Events For Good <button @click="increaseLimit">plus</button>
-  
-  <button @click="decreaseLimit">minus</button>
+
+    <button @click="decreaseLimit">minus</button>
     {{ limit }}
   </h1>
   <main class="flex flex-col items-center">
@@ -107,7 +109,6 @@ const hasNextPage = computed(() => {
 </template>
 
 <style scoped>
-
 h1 button {
   background-color: #2c3e50;
   border-radius: 10px;

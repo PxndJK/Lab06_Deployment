@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import { useMessageStore } from '@/stores/message';
-import { storeToRefs } from 'pinia';
+import { useMessageStore } from '@/stores/message'
+import { storeToRefs } from 'pinia'
 const store = useMessageStore()
 const { message } = storeToRefs(store)
 </script>
@@ -10,14 +10,28 @@ const { message } = storeToRefs(store)
 <template>
   <header class="max-h-screen leading-normal">
     <div id="flashMessage" v-if="message" class="animate-yellowfade">
-      <h4 class="text-lg">{{message}}</h4>
+      <h4 class="text-lg">{{ message }}</h4>
     </div>
-      <nav class="p-8">
-        <RouterLink :to="{ name: 'event-list'}" class="font-bold text-gray-700 hover:text-green-500"> Home </RouterLink>
-        <RouterLink :to="{ name: 'event-list2'}" class="font-bold text-gray-700 hover:text-green-500"> Home2 </RouterLink>
-        <RouterLink :to="{ name: 'student-list'}" class="font-bold text-gray-700 hover:text-green-500"> Student </RouterLink>
-        <RouterLink :to="{ name: 'about'}" class="font-bold text-gray-700 hover:text-green-500"> About </RouterLink>
-      </nav>
+    <nav class="p-8">
+      <RouterLink :to="{ name: 'event-list' }" class="font-bold text-gray-700 hover:text-green-500">
+        Home
+      </RouterLink>
+      <RouterLink
+        :to="{ name: 'event-list2' }"
+        class="font-bold text-gray-700 hover:text-green-500"
+      >
+        Home2
+      </RouterLink>
+      <RouterLink
+        :to="{ name: 'student-list' }"
+        class="font-bold text-gray-700 hover:text-green-500"
+      >
+        Student
+      </RouterLink>
+      <RouterLink :to="{ name: 'about' }" class="font-bold text-gray-700 hover:text-green-500">
+        About
+      </RouterLink>
+    </nav>
   </header>
 
   <RouterView />
@@ -71,5 +85,4 @@ h4 {
 .animate-yellowfade {
   animation: yellowfade 3s ease-in-out;
 }
-
 </style>

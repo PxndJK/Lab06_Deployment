@@ -23,12 +23,11 @@ const router = useRouter()
 //     }
 // })
 
-import { useEventStore } from '@/stores/event';
-import { storeToRefs } from 'pinia';
+import { useEventStore } from '@/stores/event'
+import { storeToRefs } from 'pinia'
 const store = useEventStore()
 const event = storeToRefs(store).event
 const id = ref(event?.value?.id)
-
 </script>
 <template>
   <div v-if="event">
